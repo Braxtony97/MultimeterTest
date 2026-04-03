@@ -7,13 +7,12 @@ public class MultimeterView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _displayText;
 
-    private void Start()
-    {
+    private void Start() => 
         EventBus.Instance.Subscribe<DisplayChangeSignal>(OnDisplayChanged);
-    }
 
-    private void OnDisplayChanged(DisplayChangeSignal signal)
-    {
+    private void OnDisplayChanged(DisplayChangeSignal signal) => 
         _displayText.text = signal.Value.ToString();
-    }
+
+    private void OnDestroy() => 
+        EventBus.Instance.Unsubscribe<DisplayChangeSignal>(OnDisplayChanged);
 }
